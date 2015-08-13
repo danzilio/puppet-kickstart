@@ -58,7 +58,7 @@ namespace :strings do
         system 'git init'
         system "git remote add origin #{git_uri}"
         system 'git pull'
-        system 'git checkout gh-pages'
+        system 'git checkout -b gh-pages'
       end
     end
   end

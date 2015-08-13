@@ -1,6 +1,6 @@
 # Kickstart
 
-[![Build Status](https://travis-ci.org/danzilio/puppet-kickstart.svg?branch=master)](https://travis-ci.org/danzilio/puppet-kickstart)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/danzilio/kickstart.svg?style=flat)](https://forge.puppetlabs.com/danzilio/kickstart) [![Build Status](https://travis-ci.org/danzilio/puppet-kickstart.svg?branch=master)](https://travis-ci.org/danzilio/puppet-kickstart) [![Documentation Status](http://img.shields.io/badge/docs-puppet--strings-ff69b4.svg?style=flat)](http://danzilio.github.io/puppet-kickstart)
 
 This module provides a primitive to generate a Kickstart file from Puppet data. This can be useful for Kickstarting physical or virtual machines. This module basically allows you to store your Kickstarts as structured data.
 

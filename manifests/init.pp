@@ -10,19 +10,19 @@
 #   array. Each argument will be printed on a newline prefaced by the command.
 #   For example:
 #
-#   kickstart { '/tmp/kickstart.ks':
-#     commands => {
-#       part => [
-#         '/boot --ondisk sda --size 128 --fstype ext3',
-#         'pv.01 --size 1 --ondisk sda --grow',
-#       ]
+#     kickstart { '/tmp/kickstart.ks':
+#       commands => {
+#         part => [
+#           '/boot --ondisk sda --size 128 --fstype ext3',
+#           'pv.01 --size 1 --ondisk sda --grow',
+#         ]
+#       }
 #     }
-#   }
 #
 #   Would result in:
 #
-#   part /boot --ondisk sda --size 128 --fstype ext3
-#   part pv.01 --size 1 --ondisk sda --grow
+#     part /boot --ondisk sda --size 128 --fstype ext3
+#     part pv.01 --size 1 --ondisk sda --grow
 #
 # [*repos*]
 #   Hash. A hash of yum repositories to be used in the kickstart. The key should
@@ -31,13 +31,13 @@
 #
 #   Example:
 #
-#   kickstart { '/tmp/kickstart.ks':
-#     repos => {
-#       base => {
-#         baseurl => 'http://mirrors.kernel.org/centos/7/os/x86_64/'
+#     kickstart { '/tmp/kickstart.ks':
+#       repos => {
+#         base => {
+#           baseurl => 'http://mirrors.kernel.org/centos/7/os/x86_64/'
+#         }
 #       }
 #     }
-#   }
 #
 # [*packages*]
 #   Array. An array of package names.
@@ -54,14 +54,14 @@
 #
 #   Example:
 #
-#   kickstart { '/tmp/kickstart.ks':
-#     fragments => {
-#       'post' => [
-#         'kickstart_profile/configure_network.erb',
-#         'kickstart_profile/install_puppet.erb'
-#       ]
+#     kickstart { '/tmp/kickstart.ks':
+#       fragments => {
+#         'post' => [
+#           'kickstart_profile/configure_network.erb',
+#           'kickstart_profile/install_puppet.erb'
+#         ]
+#       }
 #     }
-#   }
 #
 # [*fragment_variables*]
 #   Hash. A hash of settings to be consumed by your fragment templates.

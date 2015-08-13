@@ -1,3 +1,6 @@
+/.modules
+/.yardoc
+/doc
 .DS_Store
 .bundle
 .*.sw?
