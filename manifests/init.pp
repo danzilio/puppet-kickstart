@@ -166,8 +166,8 @@ define kickstart (
     }
   }
 
-  unless empty($partition_config) {
-    $unsupported_partition_config = difference(keys($partition_config), $valid_commands)
+  unless empty($partition_configuration) {
+    $unsupported_partition_config = difference(keys($partition_configuration), $valid_commands)
 
     unless empty($unsupported_partition_config) {
       $part_error_message = "Unsupported Partition commands: ${unsupported_partition_config}"
