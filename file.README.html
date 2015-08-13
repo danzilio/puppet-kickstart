@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.8.7.6
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!file.README.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="puppet_manifest_list_link"
+        href="puppet_manifest_list.html">
+      Puppet Manifest List
+    </a>
+  
+    <a class="full_list_link" id="puppet_plugin_list_link"
+        href="puppet_plugin_list.html">
+      Puppet Plugin List
+    </a>
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'>
+<h1 id="label-Kickstart">Kickstart</h1>
+
+<p><a href="https://forge.puppetlabs.com/danzilio/kickstart"><img
+src="http://img.shields.io/puppetforge/v/danzilio/kickstart.svg?style=flat"></a>
+<a href="https://travis-ci.org/danzilio/puppet-kickstart"><img
+src="https://travis-ci.org/danzilio/puppet-kickstart.svg?branch=master"></a>
+<a href="http://danzilio.github.io/puppet-kickstart"><img
+src="http://img.shields.io/badge/docs-puppet--strings-ff69b4.svg?style=flat"></a></p>
+
+<p>This module provides a primitive to generate a Kickstart file from Puppet
+data. This can be useful for Kickstarting physical or virtual machines.
+This module basically allows you to store your Kickstarts as structured
+data.</p>
+
+<h2 id="label-Support">Support</h2>
+
+<p>This module only parses a template and generates a file, so it&#39;s
+conceivably universally compatible. Given that Kickstarts are generally
+only used to configure RedHat-like Linux systems, I&#39;ve listed CentOS
+and RedHat in the module metadata.</p>
+
+<h2 id="label-Usage">Usage</h2>
+
+<p>You&#39;ll use the <code>kickstart</code> type to create Kickstart
+configurations. The title of the <code>kickstart</code> resource is a path
+where you want Puppet to place the file. The <code>commands</code> and
+<code>parititon_configuration</code> parameters accept a hash where the key
+is a string that represents the kickstart command and the value is a string
+or array of strings that represent arguments to that command. If you want a
+command to appear in the kickstart more than once, you can pass an array of
+arguments for each invocation. If you want a command to appear without
+arguments, you must set its value to <code>true</code>.</p>
+
+<pre class="code ruby"><code class="ruby">kickstart { &#39;/var/www/html/kickstart.cfg&#39;:
+  commands       =&gt; {
+    &#39;install&#39;    =&gt; true,
+    &#39;text&#39;       =&gt; true,
+    &#39;reboot&#39;     =&gt; true,
+    &#39;skipx&#39;      =&gt; true,
+    &#39;url&#39;        =&gt; &#39;--url http://mirror.centos.org/centos/6/os/x86_64&#39;,
+    &#39;lang&#39;       =&gt; &#39;en_US.UTF-8&#39;,
+    &#39;keyboard&#39;   =&gt; &#39;us&#39;,
+    &#39;network&#39;    =&gt; &#39;--device eth0 --bootproto dhcp&#39;,
+    &#39;rootpw&#39;     =&gt; &#39;test1234&#39;,
+    &#39;firewall&#39;   =&gt; &#39;--disabled&#39;,
+    &#39;selinux&#39;    =&gt; &#39;--permissive&#39;,
+    &#39;authconfig&#39; =&gt; &#39;--enableshadow --enablemd5&#39;,
+    &#39;timezone&#39;   =&gt; &#39;UTC&#39;,
+    &#39;bootloader&#39; =&gt; &#39;--location mbr&#39;,
+  },
+  parititon_configuration =&gt; {
+    zerombr   =&gt; &#39;yes&#39;,
+    clearpart =&gt; &#39;--all --initlabel&#39;,
+    part      =&gt; [
+      &#39;/boot --fstype ext3 --size 250&#39;,
+      &#39;pv.2 --size 5000 --grow&#39;,
+    ],
+    volgroup  =&gt; &#39;VolGroup00 --pesize 32768 pv.2&#39;,
+    logvol    =&gt; [
+      &#39;/ --fstype ext4 --name LogVol00 --vgname VolGroup00 --size 1024 --grow&#39;,
+      &#39;swap --fstype swap --name LogVol01 --vgname VolGroup00 --size 256 --grow --maxsize 512&#39;
+    ]
+  }
+}
+</code></pre>
+
+<p>This would result in the following Kickstart:</p>
+
+<pre class="code ruby"><code class="ruby">### THIS FILE WAS GENERATED BY PUPPET ###
+
+# Command Section
+install
+text
+reboot
+skipx
+url --url http://mirror.centos.org/centos/6/os/x86_64
+lang en_US.UTF-8
+keyboard us
+network --device eth0 --bootproto dhcp
+rootpw test1234
+firewall --disabled
+selinux --permissive
+authconfig --enableshadow --enablemd5
+timezone UTC
+bootloader --location mbr
+
+# Partition Configuration
+zerombr yes
+clearpart --all --initlabel
+part /boot --fstype ext3 --size 250
+part pv.2 --size 5000 --grow
+volgroup VolGroup00 --pesize 32768 pv.2
+logvol / --fstype ext4 --name LogVol00 --vgname VolGroup00 --size 1024 --grow
+logvol swap --fstype swap --name LogVol01 --vgname VolGroup00 --size 256 --grow --maxsize 512</code></pre>
+
+<p>This can get messy, so I recommend that you put this data into Hiera. You
+can pass arbitrary templates to the <code>kickstart</code> type for use in
+the <code>pre</code> or <code>post</code> installation sections using the
+<code>fragments</code> parameter. You must pass the <code>fragments</code>
+parameter a hash. The keys for the <code>fragments</code> hash must be the
+name of the section you want the fragment placed under (this is generally
+<code>pre</code> or <code>post</code>). The value for each section must be
+an array of paths to ERB templates.</p>
+
+<pre class="code ruby"><code class="ruby">kickstart { &#39;/var/www/html/kickstart.cfg&#39;:
+  fragments =&gt; {
+    &#39;post --interpreter /bin/bash&#39; =&gt; [
+      &#39;/some/fully/qualified/path/configure_network.erb&#39;,
+      &#39;kickstart_profile/install_puppet.erb&#39;
+    ]
+  }
+}
+</code></pre>
+
+<p>You can pass your template fragments variables using the
+<code>fragment_variables</code> parameter. You can access those variables
+in your fragment templates using the <code>@fragment_variables</code>
+instance variable:</p>
+
+<pre class="code ruby"><code class="ruby">kickstart { &#39;/var/www/html/kickstart.cfg&#39;:
+  fragments =&gt; {
+    &#39;post --interpreter /bin/bash&#39; =&gt; [
+      &#39;/some/fully/qualified/path/configure_network.erb&#39;,
+      &#39;kickstart_profile/install_puppet.erb&#39;
+    ]
+  },
+  fragment_variables =&gt; {
+    &#39;foo&#39; =&gt; &#39;bar&#39;
+  }
+}
+</code></pre>
+
+<p>You can pass a list of packages to install using the <code>packages</code>
+parameter:</p>
+
+<pre class="code ruby"><code class="ruby">kickstart { &#39;/var/www/html/kickstart.cfg&#39;:
+  packages =&gt; [
+    &#39;@base&#39;,
+    &#39;redhat-lsb&#39;,
+    &#39;apache&#39;,
+    &#39;mariadb-server&#39;,
+    &#39;nagios-nrpe&#39;
+  ]
+}
+</code></pre>
+
+<p>This would result in the following snippet:</p>
+
+<pre class="code ruby"><code class="ruby"># Packages Section
+%packages
+@base
+redhat-lsb
+apache
+mariadb-server
+nagios-nrpe
+%end</code></pre>
+
+<p>You can also add repositories for use during installation using the
+<code>repositories</code> parameter:</p>
+
+<pre class="code ruby"><code class="ruby">kickstart { &#39;/var/www/html/kickstart.cfg&#39;:
+  repositories =&gt; {
+    &#39;base&#39; =&gt; { &#39;baseurl&#39; =&gt; &#39;http://mirror.centos.org/centos/6/os/x86_64&#39; }
+  }
+}
+</code></pre>
+
+<p>This would result in the following snippet:</p>
+
+<pre class="code ruby"><code class="ruby">repo --name base --baseurl http://mirror.centos.org/centos/6/os/x86_64</code></pre>
+
+<h2 id="label-Validation">Validation</h2>
+
+<p>By default, this module will validate your Kickstart commands against a
+list of valid commands; if you pass this type an invalid Kickstart command,
+it will fail to compile. The <code>kickstart</code> type checks to make
+sure that you&#39;re passing valid Kickstart commands based on <a
+href="https://github.com/rhinstaller/pykickstart/blob/master/docs/kickstart-docs.rst">this</a>
+list. If you&#39;d like to pass a command that isn&#39;t on that list, you
+can set the <code>fail_on_unsupported_commands</code> parameter to
+<code>false</code>:</p>
+
+<pre class="code ruby"><code class="ruby">kickstart { &#39;/var/www/html/kickstart.cfg&#39;:
+  fail_on_unsupported_commands =&gt; false,
+  commands =&gt; {
+    unsupported_commands =&gt; &quot;I&#39;m an unsupported command!&quot;
+  }
+}
+</code></pre>
+
+<h2 id="label-Development">Development</h2>
+<ol><li>
+<p>Fork it</p>
+</li><li>
+<p>Create a feature branch</p>
+</li><li>
+<p>Write a failing test</p>
+</li><li>
+<p>Write the code to make that test pass</p>
+</li><li>
+<p>Refactor the code</p>
+</li><li>
+<p>Submit a pull request</p>
+</li></ol>
+
+<p>We politely request (demand) tests for all new features. Pull requests that
+contain new features without a test will not be considered. If you need
+help, just ask!</p>
+</div></div>
+
+    <div id="footer">
+  Generated on Thu Aug 13 17:51:07 2015 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.1.2).
+</div>
+
+  </body>
+</html>
