@@ -157,19 +157,19 @@ define kickstart (
     '%ksappend'
   ]
 
-  unless empty($commands) {
+  if $commands and ! empty($commands) {
     $unsupported_commands = difference(keys($commands), $valid_commands)
 
-    unless empty($unsupported_commands) {
+    if $unsupported_commands and ! empty($unsupported_commands) {
       $ks_error_message = "Unsupported Kickstart commands: ${unsupported_commands}"
       if $fail_on_unsupported_commands { fail $ks_error_message } else { warning $ks_error_message }
     }
   }
 
-  unless empty($partition_configuration) {
+  if $partition_configuration and ! empty($partition_configuration) {
     $unsupported_partition_config = difference(keys($partition_configuration), $valid_commands)
 
-    unless empty($unsupported_partition_config) {
+    if $unsupported_commands and ! empty($unsupported_partition_config) {
       $part_error_message = "Unsupported Partition commands: ${unsupported_partition_config}"
       if $fail_on_unsupported_commands { fail $part_error_message } else { warning $part_error_message }
     }
