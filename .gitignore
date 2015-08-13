@@ -1,0 +1,9 @@
+.DS_Store
+.bundle
+.*.sw?
+pkg
+spec/fixtures/modules
+spec/fixtures/manifests
+.rspec_system
+.vagrant
+vendor
