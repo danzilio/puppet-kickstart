@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'kickstart' do
+describe 'kickstart::file::advanced' do
   let(:title) { '/tmp/kickstart.cfg' }
   let(:commands) do
     {
