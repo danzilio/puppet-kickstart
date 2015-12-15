@@ -19,7 +19,7 @@ kickstart { '/var/www/html/kickstart.cfg':
     'text'       => true,
     'reboot'     => true,
     'skipx'      => true,
-    'url'        => '--url http://mirror.centos.org/centos/6/os/x86_64',
+    'url'        => '--url http://mirror.centos.org/centos/7/os/x86_64',
     'lang'       => 'en_US.UTF-8',
     'keyboard'   => 'us',
     'network'    => '--device eth0 --bootproto dhcp',
@@ -56,7 +56,7 @@ install
 text
 reboot
 skipx
-url --url http://mirror.centos.org/centos/6/os/x86_64
+url --url http://mirror.centos.org/centos/7/os/x86_64
 lang en_US.UTF-8
 keyboard us
 network --device eth0 --bootproto dhcp
@@ -138,7 +138,7 @@ You can also add repositories for use during installation using the `repositorie
 ```
 kickstart { '/var/www/html/kickstart.cfg':
   repositories => {
-    'base' => { 'baseurl' => 'http://mirror.centos.org/centos/6/os/x86_64' }
+    'base' => { 'baseurl' => 'http://mirror.centos.org/centos/7/os/x86_64' }
   }
 }
 ```
@@ -146,7 +146,7 @@ kickstart { '/var/www/html/kickstart.cfg':
 This would result in the following snippet:
 
 ```
-repo --name base --baseurl http://mirror.centos.org/centos/6/os/x86_64
+repo --name base --baseurl http://mirror.centos.org/centos/7/os/x86_64
 ```
 
 ## Validation

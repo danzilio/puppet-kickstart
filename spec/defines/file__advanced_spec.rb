@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'kickstart' do
+describe 'kickstart::file::advanced' do
   let(:title) { '/tmp/kickstart.cfg' }
   let(:commands) do
     {
@@ -8,7 +8,7 @@ describe 'kickstart' do
       'text' => true,
       'reboot' => true,
       'skipx' => true,
-      'url' => '--url http://mirror.centos.org/centos/6/os/x86_64',
+      'url' => '--url http://mirror.centos.org/centos/7/os/x86_64',
       'lang' => 'en_US.UTF-8',
       'keyboard' => 'us',
       'network' => '--device eth0 --bootproto dhcp',
@@ -45,7 +45,7 @@ describe 'kickstart' do
   let(:repos) do
     {
       'base' => {
-        'baseurl' => 'http://mirror.centos.org/centos/6/os/x86_64'
+        'baseurl' => 'http://mirror.centos.org/centos/7/os/x86_64'
       }
     }
   end
