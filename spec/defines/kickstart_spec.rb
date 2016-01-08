@@ -91,6 +91,14 @@ describe 'kickstart' do
     end
   end
 
+  context 'handling false values' do
+    let(:falsey_commands) {{ 'foo' => false, 'bar' => 'false' }}
+    let(:params) {{ :commands => falsey_commands, :fail_on_unsupported_commands => false }}
+
+    it { is_expected.to contain_file(title).without_content /foo/ }
+    it { is_expected.to contain_file(title).with_content /^bar false/ }
+  end
+
   context 'with only the commands parameter defined' do
     let(:params) {{ :commands => commands }}
 
