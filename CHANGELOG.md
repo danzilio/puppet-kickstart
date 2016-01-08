@@ -6,5 +6,9 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 - The ability to remove a command by setting its arguments to `false`. To pass the word "false" you must now pass it as a string.
 
-[unreleased]: https://github.com/danzilio/puppet-kickstart/compare/0.2.0...HEAD
-[0.2.0]: https://github.com/danzilio/puppet-kickstart/compare/0.1.1...0.2.0
+## [0.1.0] - 09-13-2015
+Initial release
+
+[unreleased]: https://github.com/danzilio/puppet-kickstart/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/danzilio/puppet-kickstart/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/danzilio/puppet-kickstart/tree/v0.1.0
