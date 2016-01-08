@@ -9,7 +9,7 @@
       <%- end -%>
     <%- elsif arguments == true -%>
 <%= command %>
-    <%- else -%>
+    <%- elsif arguments != false -%>
 <%= command %> <%= arguments %>
     <%- end -%>
   <%- end -%>
@@ -31,7 +31,7 @@ repo --name <%= name %> <%= repo.map { |k,v| "--#{k} #{v}" }.join(' ') %>
       <%- end -%>
     <%- elsif arguments == true -%>
 <%= command %>
-    <%- else -%>
+    <%- elsif arguments != false -%>
 <%= command %> <%= arguments %>
     <%- end -%>
   <%- end -%>
