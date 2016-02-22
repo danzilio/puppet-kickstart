@@ -65,6 +65,17 @@
 #
 # [*fragment_variables*]
 #   Hash. A hash of settings to be consumed by your fragment templates.
+# [*addons*]
+#   Hash. A separate section to define any addons. This
+#   follows the same rules as the 'commands' parameter.
+#
+#   Example:
+#     kickstart { '/var/www/html/kickstart.cfg':
+#       addons => {
+#         'my_addon_name --arg1 --arg2="value2"' => ['example1','example2','example3'],
+#         'my_other_addon' => [],
+#       }
+#     }
 # [*template*]
 #   String. A path to an ERB template to use for the kickstart file.
 # [*fail_on_unsupported_commands*]
@@ -78,6 +89,7 @@ define kickstart (
   $partition_configuration      = false,
   $fragments                    = false,
   $fragment_variables           = false,
+  $addons                       = false,
   $template                     = 'kickstart/kickstart.erb',
   $fail_on_unsupported_commands = true,
 ) {
@@ -92,6 +104,7 @@ define kickstart (
   if $partition_configuration { validate_hash($partition_configuration) }
   if $fragments { validate_hash($fragments) }
   if $fragment_variables { validate_hash($fragment_variables) }
+  if $addons { validate_hash($addons) }
 
   $valid_commands = [
     auth,

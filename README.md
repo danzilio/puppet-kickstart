@@ -149,6 +149,33 @@ This would result in the following snippet:
 repo --name base --baseurl http://mirror.centos.org/centos/6/os/x86_64
 ```
 
+
+This can get messy, so I recommend that you put this data into Hiera. You can pass arbitrary templates to the `kickstart` type for use in the `pre` or `post` installation sections using the `addons` parameter. You must pass the `addons` parameter a hash. The keys for the `addons` hash must be the name of the addon, and must include any options required.  The value for each addon must be a srting or an array of data required by the addon.
+
+You can configured addon with optional data, for use during installation, using the `addons` parameter.
+
+```
+kickstart { '/var/www/html/kickstart.cfg':
+  addons => {
+    'my_addon_name --arg1 --arg2="value2"' => ['example1','example2','example3'],
+    'my_other_addon' => [],
+  }
+}
+```
+
+This would result in the folloiwng snippet:
+```
+# Addons Section
+%addon my_addon_name --arg1 --arg2='value2'
+example1
+example2
+example3
+%end
+
+%addon my_other_addon
+%end
+```
+
 ## Validation
 
 By default, this module will validate your Kickstart commands against a list of valid commands; if you pass this type an invalid Kickstart command, it will fail to compile. The `kickstart` type checks to make sure that you're passing valid Kickstart commands based on [this](https://github.com/rhinstaller/pykickstart/blob/master/docs/kickstart-docs.rst) list. If you'd like to pass a command that isn't on that list, you can set the `fail_on_unsupported_commands` parameter to `false`:
