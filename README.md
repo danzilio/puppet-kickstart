@@ -154,11 +154,14 @@ This can get messy, so I recommend that you put this data into Hiera. You can pa
 
 You can configured addon with optional data, for use during installation, using the `addons` parameter.
 
+e.g: CentOS 7 provides the Kdump add-on by default, which adds support for configuring kernel crash dumping during the installation.  It's possible to write custom addons for Anaconda.
+Refer to [documentation](https://access.redhat.com/documentation/en/red-hat-enterprise-linux/version-7.1/red-hat-enterprise-linux-71-anaconda-customization-guide/) and the [reference implementation](https://github.com/rhinstaller/hello-world-anaconda-addon).
+
 ```
 kickstart { '/var/www/html/kickstart.cfg':
   addons => {
+    'com_redhat_kdump --enable --reserve-mb="auto"' => []
     'my_addon_name --arg1 --arg2="value2"' => ['example1','example2','example3'],
-    'my_other_addon' => [],
   }
 }
 ```
@@ -166,13 +169,13 @@ kickstart { '/var/www/html/kickstart.cfg':
 This would result in the folloiwng snippet:
 ```
 # Addons Section
+%addon com_redhat_kdump --enable --reserve-mb="auto"
+%end
+
 %addon my_addon_name --arg1 --arg2='value2'
 example1
 example2
 example3
-%end
-
-%addon my_other_addon
 %end
 ```
 
