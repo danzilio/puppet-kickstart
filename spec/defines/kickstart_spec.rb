@@ -49,6 +49,12 @@ describe 'kickstart' do
       }
     }
   end
+  let(:addons) do
+    {
+      'my_addon_name --arg1 --arg2="value2"' => ['example1','example2','example3'],
+      'my_other_addon' => '',
+    }
+  end
   let(:params) do
     {
       :partition_configuration => partition_configuration,
@@ -56,7 +62,8 @@ describe 'kickstart' do
       :packages => packages,
       :fragments => fragments,
       :fragment_variables => fragment_variables,
-      :repos => repos
+      :repos => repos,
+      :addons => addons
     }
   end
 
@@ -88,6 +95,12 @@ describe 'kickstart' do
     it 'should contain a valid post section' do
       is_expected.to contain_file(title).with_content /^%post$\s(^.*$)\s^%end$/m
       is_expected.to contain_file(title).with_content /^THIS IS A post SCRIPT!$/
+    end
+
+    it 'should contain a valid addon section' do
+      addons.keys.each do |addon|
+        is_expected.to contain_file(title).with_content %r{^%addon #{addon}}
+      end
     end
   end
 

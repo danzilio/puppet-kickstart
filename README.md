@@ -149,6 +149,36 @@ This would result in the following snippet:
 repo --name base --baseurl http://mirror.centos.org/centos/6/os/x86_64
 ```
 
+
+This can get messy, so I recommend that you put this data into Hiera. You can pass arbitrary templates to the `kickstart` type for use in the `pre` or `post` installation sections using the `addons` parameter. You must pass the `addons` parameter a hash. The keys for the `addons` hash must be the name of the addon, and must include any options required.  The value for each addon must be a srting or an array of data required by the addon.
+
+You can configured addon with optional data, for use during installation, using the `addons` parameter.
+
+e.g: CentOS 7 provides the Kdump add-on by default, which adds support for configuring kernel crash dumping during the installation.  It's possible to write custom addons for Anaconda.
+Refer to [documentation](https://access.redhat.com/documentation/en/red-hat-enterprise-linux/version-7.1/red-hat-enterprise-linux-71-anaconda-customization-guide/) and the [reference implementation](https://github.com/rhinstaller/hello-world-anaconda-addon).
+
+```
+kickstart { '/var/www/html/kickstart.cfg':
+  addons => {
+    'com_redhat_kdump --enable --reserve-mb="auto"' => []
+    'my_addon_name --arg1 --arg2="value2"' => ['example1','example2','example3'],
+  }
+}
+```
+
+This would result in the folloiwng snippet:
+```
+# Addons Section
+%addon com_redhat_kdump --enable --reserve-mb="auto"
+%end
+
+%addon my_addon_name --arg1 --arg2='value2'
+example1
+example2
+example3
+%end
+```
+
 ## Validation
 
 By default, this module will validate your Kickstart commands against a list of valid commands; if you pass this type an invalid Kickstart command, it will fail to compile. The `kickstart` type checks to make sure that you're passing valid Kickstart commands based on [this](https://github.com/rhinstaller/pykickstart/blob/master/docs/kickstart-docs.rst) list. If you'd like to pass a command that isn't on that list, you can set the `fail_on_unsupported_commands` parameter to `false`:

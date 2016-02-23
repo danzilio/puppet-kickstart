@@ -57,3 +57,19 @@ repo --name <%= name %> <%= repo.map { |k,v| "--#{k} #{v}" }.join(' ') %>
   <%- end -%>
 %end
 <% end -%>
+
+<% if @addons && ! @addons.empty? -%>
+# Addons section
+  <%- @addons.each do |addon, arguments| -%>
+%addon <%= addon %>
+    <%- if arguments.is_a?(Array) && !arguments.empty? -%>
+      <%- arguments.each do |arg| -%>
+<%= arg %>
+      <%- end -%>
+    <%- elsif !arguments.empty? -%>
+<%= arguments %>
+    <%- end -%>
+  <%- end -%>
+%end
+<% end -%>
+
