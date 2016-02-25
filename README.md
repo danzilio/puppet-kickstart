@@ -106,7 +106,7 @@ kickstart { '/var/www/html/kickstart.cfg':
 }
 ```
 
-You can pass a list of packages to install using the `packages` parameter:
+You can pass a list of packages to install using the `packages` parameter, with an `Array` of packages:
 
 ```
 kickstart { '/var/www/html/kickstart.cfg':
@@ -120,7 +120,7 @@ kickstart { '/var/www/html/kickstart.cfg':
 }
 ```
 
-or the hash version:
+or `packages` parameter with a `Hash` of options and packages:
 
 ```
 kickstart { '/var/www/html/kickstart.cfg':
