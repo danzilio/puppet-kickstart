@@ -104,6 +104,26 @@ describe 'kickstart' do
     end
   end
 
+  context 'when handling packages hash with options' do
+    let(:packages) { {'options' => '--nobase --ignoremissing', 'package_list' => [ '@core', 'authconfig', 'system-config-firewall-base']} }
+
+    it { is_expected.to compile }
+    it { is_expected.to contain_file(title).with_content /^%packages --nobase --ignoremissing$\s+(^[\S\s]+$)\s+^%end$/ }
+  end
+
+  context 'when handling packages hash without options' do
+    let(:packages) { {'package_list' => [ '@core', 'authconfig', 'system-config-firewall-base']} }
+
+    it { is_expected.to compile }
+    it { is_expected.to contain_file(title).with_content /^%packages$\s+(^[\S\s]+$)\s+^%end$/ }
+  end
+
+  context 'when packages is not an array or hash' do
+    let(:packages) { 'package_list' }
+
+    it { is_expected.not_to compile }
+  end
+
   context 'handling false values' do
     let(:falsey_commands) {{ 'foo' => false, 'bar' => 'false' }}
     let(:params) {{ :commands => falsey_commands, :fail_on_unsupported_commands => false }}

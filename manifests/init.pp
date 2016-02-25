@@ -41,6 +41,31 @@
 #
 # [*packages*]
 #   Array. An array of package names.
+#   Hash. A hash containing package options, and also the package list
+#
+#   Example: As Array
+#
+#   kickstart { '/var/www/html/kickstart.cfg':
+#     packages => [
+#       '@base',
+#       'redhat-lsb',
+#       'apache',
+#       'mariadb-server',
+#       'nagios-nrpe'
+#     ]
+#   }
+#
+#   Example: As Hash
+#
+#   kickstart { '/var/www/html/kickstart.cfg':
+#     packages => {
+#       'options' => '--nobase',
+#       'package_list' => [
+#         '@core',
+#       ]
+#     }
+#   }
+#                                                 }
 # [*partition_configuration*]
 #   Hash. A separate section to define your partition configuration. This
 #   follows the same rules as the 'commands' parameter.
@@ -100,7 +125,13 @@ define kickstart (
   validate_hash($commands)
 
   if $repos { validate_hash($repos) }
-  if $packages { validate_array($packages) }
+  if $packages {
+    if is_array($packages) {
+      validate_array($packages)
+    } else {
+      validate_hash($packages)
+    }
+  }
   if $partition_configuration { validate_hash($partition_configuration) }
   if $fragments { validate_hash($fragments) }
   if $fragment_variables { validate_hash($fragment_variables) }
