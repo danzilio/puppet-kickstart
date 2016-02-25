@@ -48,7 +48,7 @@ repo --name <%= name %> <%= repo.map { |k,v| "--#{k} #{v}" }.join(' ') %>
      end
 -%>
 # Packages Section
-%packages<% if !package_options.to_s.empty? -%><%= " #{package_options}" %><% end %>
+%packages<% unless package_options.to_s.empty? -%><%= " #{package_options}" %><% end %>
   <%- package_list.each do |package| -%>
 <%= package %>
   <%- end -%>

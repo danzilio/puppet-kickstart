@@ -120,22 +120,6 @@ kickstart { '/var/www/html/kickstart.cfg':
 }
 ```
 
-or `packages` parameter with a `Hash` of options and packages:
-
-```
-kickstart { '/var/www/html/kickstart.cfg':
-  packages => {
-    'package_list' => [
-      '@base',
-      'redhat-lsb',
-      'apache',
-      'mariadb-server',
-      'nagios-nrpe'
-    ]
-  }
-}
-```
-
 This would result in the following snippet:
 
 ```
@@ -154,7 +138,7 @@ You can pass a list of packages, with options, to install using the `packages` p
 ```
 kickstart { '/var/www/html/kickstart.cfg':
   packages => {
-    'options' => '--nobase --ignoremissing',
+    'options'      => '--nobase --ignoremissing',
     'package_list' => [
       '@core',
       'nagios-nrpe'
