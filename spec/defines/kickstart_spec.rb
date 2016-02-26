@@ -148,4 +148,24 @@ describe 'kickstart' do
     it { is_expected.not_to compile }
     it { is_expected.to raise_error Puppet::Error, /Unsupported Kickstart commands/ }
   end
+
+  context 'when multiple fragments for pre/post are provided' do
+    let(:fragment_variables) {{ 'kind' => 'post', 'other_kind' => 'pre', 'opts' => 'nochroot' }}
+    let(:fragments) do
+      {
+        'pre' => ["#{fixture_path}/templates/pre.erb"],
+        'post --nochroot' => ["#{fixture_path}/templates/post_opts.erb"],
+        'post' => ["#{fixture_path}/templates/post.erb"]
+      }
+    end
+
+    it { is_expected.to compile }
+    it { is_expected.to contain_file(title).with_content /^%pre$\s(^.*$)\s^%end$/m }
+    it { is_expected.to contain_file(title).with_content /^THIS IS A pre SCRIPT!$/ }
+    it { is_expected.to contain_file(title).with_content /^%post --nochroot$\s(^.*$)\s^%end$/m }
+    it { is_expected.to contain_file(title).with_content /^THIS IS A post SCRIPT WITH nochroot!$/ }
+    it { is_expected.to contain_file(title).with_content /^%post$\s(^.*$)\s^%end$/m }
+    it { is_expected.to contain_file(title).with_content /^THIS IS A post SCRIPT!$/ }
+  end
+
 end

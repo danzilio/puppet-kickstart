@@ -63,8 +63,8 @@ repo --name <%= name %> <%= repo.map { |k,v| "--#{k} #{v}" }.join(' ') %>
 <%= scope.function_template([template]) %>
 ########## END: <%= template %>
     <%- end -%>
-  <%- end -%>
 %end
+  <%- end -%>
 <% end -%>
 
 <% if @addons && ! @addons.empty? -%>
