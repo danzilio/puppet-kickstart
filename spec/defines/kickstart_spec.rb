@@ -160,12 +160,7 @@ describe 'kickstart' do
     end
 
     it { is_expected.to compile }
-    it { is_expected.to contain_file(title).with_content /^%pre$\s(^.*$)\s^%end$/m }
-    it { is_expected.to contain_file(title).with_content /^THIS IS A pre SCRIPT!$/ }
-    it { is_expected.to contain_file(title).with_content /^%post --nochroot$\s(^.*$)\s^%end$/m }
-    it { is_expected.to contain_file(title).with_content /^THIS IS A post SCRIPT WITH nochroot!$/ }
-    it { is_expected.to contain_file(title).with_content /^%post$\s(^.*$)\s^%end$/m }
-    it { is_expected.to contain_file(title).with_content /^THIS IS A post SCRIPT!$/ }
+    it { is_expected.to contain_file(title).with_content /^%pre$\s(^.*$)\s^%end$\s^%post --nochroot$\s(^.*$)\s^%end$\s^%post$\s(^.*$)\s^%end$/m }
   end
 
 end
