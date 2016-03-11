@@ -37,10 +37,19 @@ repo --name <%= name %> <%= repo.map { |k,v| "--#{k} #{v}" }.join(' ') %>
   <%- end -%>
 <% end -%>
 
-<% if @packages && ! @packages.empty? -%>
+<%
+   package_options, package_list = nil
+   if @packages && ! @packages.empty?
+     if @packages.is_a?(Array)
+       package_list = @packages
+     elsif @packages.is_a?(Hash)
+       package_options = (@packages.has_key?('options') ? @packages['options'] : '')
+       package_list = (@packages.has_key?('package_list') ? @packages['package_list'] : [])
+     end
+-%>
 # Packages Section
-%packages
-  <%- @packages.each do |package| -%>
+%packages<% unless package_options.to_s.empty? -%><%= " #{package_options}" %><% end %>
+  <%- package_list.each do |package| -%>
 <%= package %>
   <%- end -%>
 %end
@@ -54,8 +63,8 @@ repo --name <%= name %> <%= repo.map { |k,v| "--#{k} #{v}" }.join(' ') %>
 <%= scope.function_template([template]) %>
 ########## END: <%= template %>
     <%- end -%>
-  <%- end -%>
 %end
+  <%- end -%>
 <% end -%>
 
 <% if @addons && ! @addons.empty? -%>

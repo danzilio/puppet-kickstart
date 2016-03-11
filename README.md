@@ -106,7 +106,7 @@ kickstart { '/var/www/html/kickstart.cfg':
 }
 ```
 
-You can pass a list of packages to install using the `packages` parameter:
+You can pass a list of packages to install using the `packages` parameter, with an `Array` of packages:
 
 ```
 kickstart { '/var/www/html/kickstart.cfg':
@@ -129,6 +129,30 @@ This would result in the following snippet:
 redhat-lsb
 apache
 mariadb-server
+nagios-nrpe
+%end
+```
+
+You can pass a list of packages, with options, to install using the `packages` parameter:
+
+```
+kickstart { '/var/www/html/kickstart.cfg':
+  packages => {
+    'options'      => '--nobase --ignoremissing',
+    'package_list' => [
+      '@core',
+      'nagios-nrpe'
+    ]
+  }
+}
+```
+
+This would result in the following snippet:
+
+```
+# Packages Section
+%packages --nobase --ignoremissing
+@core
 nagios-nrpe
 %end
 ```
