@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [Unreleased][unreleased]
 
+## [0.4.0] - 04-06-2016
+### Added
+- The ability to define options for the `package` section by passing a `Hash` to the `packages` parameter.
+
 ## [0.3.0] - 02-22-2016
 ### Added
 - The ability to define `%addon` sections at the end of a Kickstart via the `addons` parameter.
@@ -14,7 +18,8 @@ All notable changes to this project will be documented in this file. This projec
 ## [0.1.0] - 09-13-2015
 Initial release
 
-[unreleased]: https://github.com/danzilio/puppet-kickstart/compare/v0.2.0...HEAD
+[unreleased]: https://github.com/danzilio/puppet-kickstart/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/danzilio/puppet-kickstart/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/danzilio/puppet-kickstart/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/danzilio/puppet-kickstart/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/danzilio/puppet-kickstart/tree/v0.1.0
