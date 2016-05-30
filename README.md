@@ -203,6 +203,17 @@ example3
 %end
 ```
 
+You can remove a configuration file as such:
+
+```
+kickstart { '/var/www/html/kickstart.cfg':
+  ensure => absent,
+}
+```
+
+This will remove the file at the location defined by `$title`.
+
+
 ## Validation
 
 By default, this module will validate your Kickstart commands against a list of valid commands; if you pass this type an invalid Kickstart command, it will fail to compile. The `kickstart` type checks to make sure that you're passing valid Kickstart commands based on [this](https://github.com/rhinstaller/pykickstart/blob/master/docs/kickstart-docs.rst) list. If you'd like to pass a command that isn't on that list, you can set the `fail_on_unsupported_commands` parameter to `false`:
