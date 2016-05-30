@@ -208,6 +208,7 @@ You can remove a configuration file as such:
 ```
 kickstart { '/var/www/html/kickstart.cfg':
   ensure => absent,
+  ...
 }
 ```
 
