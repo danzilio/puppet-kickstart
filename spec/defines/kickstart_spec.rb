@@ -55,7 +55,6 @@ describe 'kickstart' do
       'my_other_addon' => '',
     }
   end
-  let(:ensure) { 'present' }
   let(:params) do
     {
       :partition_configuration => partition_configuration,
