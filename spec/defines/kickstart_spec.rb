@@ -63,7 +63,7 @@ describe 'kickstart' do
       :fragments => fragments,
       :fragment_variables => fragment_variables,
       :repos => repos,
-      :addons => addons
+      :addons => addons,
     }
   end
 
@@ -161,6 +161,20 @@ describe 'kickstart' do
 
     it { is_expected.to compile }
     it { is_expected.to contain_file(title).with_content /^%pre$\s(^.*$)\s^%end$\s^%post --nochroot$\s(^.*$)\s^%end$\s^%post$\s(^.*$)\s^%end$/m }
+  end
+
+  context 'when ensure is not valid' do
+    let(:params) {{:ensure => 'delete', :commands => commands}}
+
+    it { is_expected.not_to compile }
+    it { is_expected.to raise_error Puppet::Error, /Invalid value for ensure. Must be 'present' or 'absent'/ }
+  end
+
+  context 'when marking configuration as absent' do
+    let(:params) {{:ensure => 'absent', :commands => commands}}
+
+    it { is_expected.to compile }
+    it { is_expected.to contain_file(title).with_ensure('absent') }
   end
 
 end
