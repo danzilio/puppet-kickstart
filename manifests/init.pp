@@ -72,6 +72,12 @@
 # [*partition_configuration*]
 #   Hash. A separate section to define your partition configuration. This
 #   follows the same rules as the 'commands' parameter.
+# [*pre*]
+#   Array. An array of commands to be injected in the 'pre' section of the Kickstart file.
+#
+# [*post*]
+#   Array. An array of commands to be injected in the 'post' section of the Kickstart file.
+#
 # [*fragments*]
 #   Hash. An hash of fragments to be evaluated in the template. These are
 #   passed as an argument to the `template` function. The hash must have the
@@ -116,6 +122,8 @@ define kickstart (
   $repos                        = false,
   $packages                     = false,
   $partition_configuration      = false,
+  $post                         = false,
+  $pre                          = false,
   $fragments                    = false,
   $fragment_variables           = false,
   $addons                       = false,
@@ -138,6 +146,8 @@ define kickstart (
     }
   }
   if $partition_configuration { validate_hash($partition_configuration) }
+  if $pre { validate_array($pre) }
+  if $post { validate_array($post) }
   if $fragments { validate_hash($fragments) }
   if $fragment_variables { validate_hash($fragment_variables) }
   if $addons { validate_hash($addons) }
