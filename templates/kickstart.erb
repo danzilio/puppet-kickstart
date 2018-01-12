@@ -55,8 +55,8 @@ repo --name <%= name %> <%= repo.map { |k,v| "--#{k} #{v}" }.join(' ') %>
 %end
 <% end -%>
 
-#Pre section from inline array
 <% if @pre && ! @pre.empty? -%>
+#Pre section from inline array
 %pre
   <%- @pre.each do |pre_cmd| -%>
 <%= pre_cmd %>
@@ -76,8 +76,8 @@ repo --name <%= name %> <%= repo.map { |k,v| "--#{k} #{v}" }.join(' ') %>
   <%- end -%>
 <% end -%>
 
-#Post section from inline array
 <% if @post && ! @post.empty? -%>
+#Post section from inline array
 %post
   <%- @post.each do |post_cmd| -%>
 <%= post_cmd %>
