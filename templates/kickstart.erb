@@ -55,6 +55,15 @@ repo --name <%= name %> <%= repo.map { |k,v| "--#{k} #{v}" }.join(' ') %>
 %end
 <% end -%>
 
+<% if @pre && ! @pre.empty? -%>
+#Pre section from inline array
+%pre
+  <%- @pre.each do |pre_cmd| -%>
+<%= pre_cmd %>
+  <%- end -%>
+%end
+<% end -%>
+
 <% if @fragments && ! @fragments.empty? -%>
   <%- @fragments.each do |section, templates| -%>
 %<%= section %>
@@ -65,6 +74,15 @@ repo --name <%= name %> <%= repo.map { |k,v| "--#{k} #{v}" }.join(' ') %>
     <%- end -%>
 %end
   <%- end -%>
+<% end -%>
+
+<% if @post && ! @post.empty? -%>
+#Post section from inline array
+%post
+  <%- @post.each do |post_cmd| -%>
+<%= post_cmd %>
+  <%- end -%>
+%end
 <% end -%>
 
 <% if @addons && ! @addons.empty? -%>
@@ -81,4 +99,3 @@ repo --name <%= name %> <%= repo.map { |k,v| "--#{k} #{v}" }.join(' ') %>
   <%- end -%>
 %end
 <% end -%>
-
