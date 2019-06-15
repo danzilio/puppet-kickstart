@@ -10,7 +10,7 @@ This module only parses a template and generates a file, so it's conceivably uni
 
 ## Usage
 
-You'll use the `kickstart` type to create Kickstart configurations. The title of the `kickstart` resource is a path where you want Puppet to place the file. The `commands` and `parititon_configuration` parameters accept a hash where the key is a string that represents the kickstart command and the value is a string or array of strings that represent arguments to that command. If you want a command to appear in the kickstart more than once, you can pass an array of arguments for each invocation. If you want a command to appear without arguments, you must set its value to `true`.
+You'll use the `kickstart` type to create Kickstart configurations. The title of the `kickstart` resource is a path where you want Puppet to place the file. The `commands` and `partition_configuration` parameters accept a hash where the key is a string that represents the kickstart command and the value is a string or array of strings that represent arguments to that command. If you want a command to appear in the kickstart more than once, you can pass an array of arguments for each invocation. If you want a command to appear without arguments, you must set its value to `true`.
 
 ```
 kickstart { '/var/www/html/kickstart.cfg':
@@ -30,7 +30,7 @@ kickstart { '/var/www/html/kickstart.cfg':
     'timezone'   => 'UTC',
     'bootloader' => '--location mbr',
   },
-  parititon_configuration => {
+  partition_configuration => {
     zerombr   => 'yes',
     clearpart => '--all --initlabel',
     part      => [
