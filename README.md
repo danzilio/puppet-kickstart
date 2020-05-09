@@ -157,11 +157,11 @@ nagios-nrpe
 %end
 ```
 
-You can also add repositories for use during installation using the `repositories` parameter:
+You can also add repositories for use during installation using the `repos` parameter:
 
 ```
 kickstart { '/var/www/html/kickstart.cfg':
-  repositories => {
+  repos => {
     'base' => { 'baseurl' => 'http://mirror.centos.org/centos/6/os/x86_64' }
   }
 }
